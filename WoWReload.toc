@@ -1,0 +1,8 @@
+## Interface: 30300
+## Title: WoWReload
+## Notes: AddOn for WoWReload 3.3.5
+## Secure: 1
+
+WoWReload.lua
+WoWReload.xml
+WoWReload.url
