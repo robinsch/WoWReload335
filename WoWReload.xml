@@ -222,13 +222,23 @@
         <HighlightFont style="GameFontHighlightSmall"/>
       </Button>
       <ScrollFrame name="$parentScrollFrame" inherits="UIPanelScrollFrameTemplate">
-        <Size x="613" y="90"/>
+        <Size x="615" y="100"/>
         <Anchors>
           <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameTitle" x="4" y="-22"/>
         </Anchors>
+        <Backdrop bgFile="Interface\Buttons\WHITE8x8" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+          <EdgeSize val="14"/>
+          <TileSize val="32"/>
+          <BackgroundInsets left="3" right="3" top="3" bottom="3"/>
+          <Color r="0" g="0" b="0" a="0.8"/>
+          <BorderColor r="0.3" g="0.3" b="0.3"/>
+        </Backdrop>
         <ScrollChild>
           <EditBox name="$parentText" multiLine="true" letters="4000" autoFocus="false">
-            <Size x="343" y="194"/>
+            <Size x="615" y="100"/>
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameTitle" x="4" y="-22"/>
+            </Anchors>
             <Scripts>
               <OnCursorChanged function="ScrollingEdit_OnCursorChanged"/>
               <OnUpdate>
@@ -238,6 +248,9 @@
                 self:HighlightText(0);
               </OnEditFocusGained>
               <OnEscapePressed function="EditBox_ClearFocus"/>
+              <OnShow>
+                self:SetTextInsets(5, 0, 5, 0);
+              </OnShow>
             </Scripts>
             <FontString inherits="GameFontHighlightSmall"/>
           </EditBox>
