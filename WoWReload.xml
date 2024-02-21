@@ -40,6 +40,11 @@
             <Anchor point="TOPLEFT" relativeTo="$parentAssetTitle" x="370" y="0"/>
           </Anchors>
         </FontString>
+        <FontString name="$parentWDBTitle" text="WDB Cache" inherits="GameFontNormal" justifyH="LEFT" justifyV="TOP">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parentInterfaceTitle" x="0" y="-110"/>
+          </Anchors>
+        </FontString>
       </Layer>
     </Layers>
     <Frames>
@@ -175,28 +180,42 @@
           </OnLoad>
         </Scripts>
       </CheckButton>
-      <ScrollFrame name="$parentScrollFrame" inherits="HybridScrollFrameTemplate">
-        <Size>
-          <AbsDimension x="305" y="157"/>
-        </Size>
+      <Frame name="$parentWDBDisplay" inherits="UIDropDownMenuTemplate" enableMouse="true">
         <Anchors>
-          <Anchor point="TOPLEFT">
-            <Offset x="16" y="-58"/>
+          <Anchor point="TOPLEFT" relativeTo="$parentWDBTitle" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="-13" y="-4"/>
+            </Offset>
           </Anchor>
         </Anchors>
-        <Frames>
-          <Slider name="$parentScrollBar" inherits="HybridScrollBarTemplate" parentKey="scrollBar">
-            <Anchors>
-              <Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
-                <Offset x="0" y="-13"/>
-              </Anchor>
-              <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
-                <Offset x="0" y="14"/>
-              </Anchor>
-            </Anchors>
-          </Slider>
-        </Frames>
-      </ScrollFrame>
+        <Scripts>
+          <OnLoad>
+            self.type = CONTROLTYPE_DROPDOWN;
+            self:RegisterEvent("PLAYER_ENTERING_WORLD");
+            BlizzardOptionsPanel_RegisterControl(self, self:GetParent());
+          </OnLoad>
+          <OnEvent function="WoWReloadWDBDisplay_OnEvent"/>
+        </Scripts>
+      </Frame>
+      <Button name="$parentClearWDB" inherits="UIPanelButtonTemplate" text="Clear">
+        <Size>
+          <AbsDimension x="78" y="22"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeTo="$parentWDBDisplay">
+            <Offset>
+              <AbsDimension x="68" y="-2"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            ClearWDB(UIDropDownMenu_GetSelectedValue(WoWReloadWDBDisplay))
+          </OnClick>
+        </Scripts>
+        <NormalFont style="GameFontNormalSmall"/>
+        <HighlightFont style="GameFontHighlightSmall"/>
+      </Button>
     </Frames>
     <Scripts>
       <OnLoad function="WoWReload_OnLoad"/>
